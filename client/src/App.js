@@ -5,6 +5,9 @@ import Admin from "./Components/Admin/admin";
 import Faculty from "./Components/Faculty/faculty";
 import Student from "./Components/Student/student";
 
+import Register from "./Components/auth/register";
+import Login from "./Components/auth/login";
+
 
 class App extends React.Component {
   constructor(props){
@@ -16,6 +19,8 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Route path="/admin" component={Admin}></Route>
+        <Route path="/register" component={Register}></Route>
+        <Route path="/login" component={Login}></Route>
         <Route path="/faculty" component={Faculty}></Route>
         <Route path="/" exact component={Student}></Route>
       </React.Fragment>

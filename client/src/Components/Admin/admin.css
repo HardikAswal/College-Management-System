@@ -1,0 +1,21 @@
+#menu{
+    float:left;
+    margin-top: 75px;
+}
+
+#menu li{
+    list-style: none;
+    padding: 15px;
+    margin: 10px;
+}
+
+#right{
+    float: right;
+    margin-top: 80px;
+    margin-right: 100px;
+    width: 600px;
+}
+
+.add_student input {
+    display: block;
+}

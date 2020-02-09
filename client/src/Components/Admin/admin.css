@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #E4E2E2;
+}
+
+.Link{
+    outline: none;
+    text-decoration: none;
+}
+
+#navbar *{
+    display: inline;
+}
+
+#navbar {
+    height: 50px;
+    background-color: rgb(6, 43, 95)
+}
+
+#menu{
+    float:left;
+    background-color: #021A3D;
+    min-width: 20%;
+    position: absolute;
+    bottom: 0;
+    top: 50px;
+}
+
+#menu ul{
+    margin-top: 40px;
+}
+
+#menu li{
+    list-style: none;
+    padding: 0px;
+    margin: 25px 25px 25px 30px;
+    color: #fff;
+    outline: none;
+}
+
+#menu ul li i {
+    width: 30px;
+    text-align: center;
+    margin-right: 35px;
+}
+
+#menu ul button {
+    border:1px solid #00E5FF;
+    background-color: #021A3D;
+    padding: 10px;
+    border-radius: 5px;
+    color: #00E5FF;
+    margin-left: 35%;
+    cursor: pointer;
+    margin-top: 20px;
+    font-weight: 700;
+    outline: none;
+}
+
+#right{
+    float: right;
+    background-color: #E4E2E2;
+    width: 80%;
+    height: 100%;
+}
+
+#right input {
+    display: block;
+    margin: 15px;
+    padding: 5px;
+}
+
+.dashboard-head{
+    margin-left: 25px;
+    margin-top: 25px;
+    color: #021A3D;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard .banner{
+    margin:30px 15px 10px 10px; 
+    width: 335px;
+    height: 120px;
+    text-align: center;
+    border-radius: 15px;
+    display:flex; 
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center; 
+    padding-right: 30px;
+    font-size: 18px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.dashboard .banner-info{
+    display: flex;
+    padding:15px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.dashboard span{
+    display: block;
+    font-size: 42px;
+}
+
+.dashboard .banner:first-child{
+    background-color: #6C7B95;
+    margin-left: 25px;
+}
+
+.dashboard .banner:nth-child(2){
+    background-color: #8BBABB;
+}
+
+.dashboard .banner:nth-child(3){
+    background-color: #B2D9C5;
+    margin-right: 25px;
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 *{
     margin: 0;
@@ -33,10 +34,16 @@ body{
 
 #menu ul{
     margin-top: 40px;
+=======
+#menu{
+    float:left;
+    margin-top: 75px;
+>>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
 }
 
 #menu li{
     list-style: none;
+<<<<<<< HEAD
     padding: 0px;
     margin: 25px 25px 25px 30px;
     color: #fff;
@@ -60,10 +67,15 @@ body{
     margin-top: 20px;
     font-weight: 700;
     outline: none;
+=======
+    padding: 15px;
+    margin: 10px;
+>>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
 }
 
 #right{
     float: right;
+<<<<<<< HEAD
     background-color: #E4E2E2;
     width: 80%;
     height: 100%;
@@ -131,4 +143,13 @@ body{
 .dashboard .banner:nth-child(3){
     background-color: #B2D9C5;
     margin-right: 25px;
+=======
+    margin-top: 80px;
+    margin-right: 100px;
+    width: 600px;
+}
+
+.add_student input {
+    display: block;
+>>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
 }

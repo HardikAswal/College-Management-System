@@ -1,17 +1,12 @@
 import React from 'react'
 import {BrowserRouter as Router,Route,Link} from "react-router-dom";
 import "./admin.css";
-<<<<<<< HEAD
-=======
-// import Add_student from "./addStudent"
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
 
 class Admin extends React.Component{
     constructor(props){
         super(props);
         this.state={};
         this.state.student=[];
-<<<<<<< HEAD
         this.state.faculty=[];
         this.state.news=[]
     }
@@ -19,14 +14,6 @@ class Admin extends React.Component{
     addStudent(student_info){
         console.log(student_info);
         let {student}=this.state;
-=======
-        this.state.faculty=[]
-    }
-
-    addInfo(student_info){
-        console.log(student_info);
-        let student=this.state.student;
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
         student.push(student_info);
         console.log(student)
         this.setState({
@@ -37,11 +24,7 @@ class Admin extends React.Component{
     
     addFaculty(faculty_info){
         console.log(faculty_info);
-<<<<<<< HEAD
         let {faculty}=this.state;
-=======
-        let faculty=this.state.faculty;
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
         faculty.push(faculty_info);
         console.log(faculty)
         this.setState({
@@ -50,7 +33,6 @@ class Admin extends React.Component{
         console.log(this.state.faculty);
     }
 
-<<<<<<< HEAD
     AddNews(info){
         console.log(info);
         let {news} = this.state;
@@ -82,35 +64,14 @@ class Admin extends React.Component{
                         <li><i class="fas fa-credit-card fa-lg"></i>Payment</li>
                         <li><i class="fas fa-comment-alt fa-lg"></i>Messages</li>
                         <button>Logout</button>
-=======
-    render(){
-        return(
-            <React.Fragment>
-                <div id="menu">
-                    <ul>
-                        <Link to="/admin"><li>Admin</li></Link>
-                        <li>Dashboard</li>
-                        <Link to="/admin/admin_student"><li>Student</li></Link>
-                        <Link to="/admin/admin_faculty"><li>Faculty</li></Link>
-                        <li>Department</li>
-                        <li>Courses</li>
-                        <li>Dashboard</li>
-                        <li>Dashboard</li>
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
                     </ul>
                 </div>
 
                 <div id="right">
-<<<<<<< HEAD
                     <Route path="/admin/dashboard" render={(e)=><Dashboard student={this.state.student} faculty={this.state.faculty} news={this.state.news}></Dashboard>}></Route>
                     <Route path="/admin/admin_faculty" render={(e)=><Admin_to_faculty addFaculty={this.addFaculty.bind(this)} faculty={this.state.faculty}></Admin_to_faculty>}></Route>
                     <Route path="/admin/admin_student" render={(e)=><Admin_to_student addStudent={this.addStudent.bind(this)} student={this.state.student}></Admin_to_student>}></Route>    
                     <Route path="/admin/news" render={(e)=><AddNews AddNews={this.AddNews.bind(this)}></AddNews>}></Route>
-=======
-                    <Route path="/admin/admin_faculty" render={(e)=><Admin_to_faculty addFaculty={this.addFaculty.bind(this)} faculty={this.state.faculty}></Admin_to_faculty>}></Route>
-                    <Route path="/admin/admin_student" render={(e)=><Admin_to_student addInfo={this.addInfo.bind(this)} student={this.state.student}></Admin_to_student>}></Route>    
-                    {/* <Route path="/admin/admin_student/Add_student" render={(e)=><Add_student addInfo={this.addInfo.bind(this)}></Add_student>}></Route> */}
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
                 </div>
             </React.Fragment>
         )
@@ -126,14 +87,10 @@ function Admin_to_student(props){
             <h2>Manage Student</h2>
             <Link to="/admin/admin_student/Add_student">Add Student</Link>
             </div>
-<<<<<<< HEAD
             <Route path="/admin/admin_student/Add_student" render={(e)=><Add_student addStudent={props.addStudent.bind(this)}></Add_student>}></Route>
-=======
-            <Route path="/admin/admin_student/Add_student" render={(e)=><Add_student addInfo={props.addInfo.bind(this)}></Add_student>}></Route>
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
             <div>
             {props.student.map((x)=>(
-                    <div>{x.name} {x.enroll} {x.address} {x.dob} </div>
+                    <div>{x.name} {x.enroll} {x.address} {x.dob} {x.city} {x.states} {x.pincode} {x.email}</div>
                     ))}
             </div>        
         </div>
@@ -149,11 +106,7 @@ function Admin_to_faculty(props){
             </div>
             <Route path="/admin/admin_faculty/Add_faculty" render={(e)=><Add_faculty addFaculty={props.addFaculty.bind(this)}></Add_faculty>}></Route>
             <div>
-<<<<<<< HEAD
             {props.faculty.map((x,i)=>(
-=======
-            {props.faculty.map((x)=>(
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
                     <div>{x.name} {x.enroll} {x.address} {x.dob} </div>
                     ))}
             </div>        
@@ -166,36 +119,33 @@ function Add_student(props){
     const [name, setName] = React.useState("");
     const [enroll, setEnroll] = React.useState("");
     const [address, setAddress] = React.useState("");
+    const [city,setCity] = React.useState("");
+    const [states,setStates] = React.useState("");
+    const [pincode,setPincode] = React.useState("");
+    const [email,setEmail] = React.useState("");
     const [dob, setDob] = React.useState(null);
     const [fname, setFname] = React.useState("");
     const [mname, setMname] = React.useState("");
 
 return (
     <div className="add_student">
-<<<<<<< HEAD
        <input type="text" name="Name" placeholder="Name" onChange={(e)=>{setName(e.target.value)}} value={name}></input> 
        <input type="text" name="enroll_no" placeholder="Enrollment Number" onChange={(e)=>{setEnroll(e.target.value)}} value={enroll}></input> 
-=======
-       <input type="text" name="name" placeholder="Name" onChange={(e)=>{setName(e.target.value)}} value={name}></input> 
-       <input type="number" name="enroll_no" placeholder="Enrollment Number" onChange={(e)=>{setEnroll(e.target.value)}} value={enroll}></input> 
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
        <input type="text" name="address" placeholder="Address" onChange={(e)=>{setAddress(e.target.value)}} value={address}></input> 
+       <input type="text" name="city" placeholder="City" onChange={(e)=>{setCity(e.target.value)}} value={city}></input>
+       <input type="text" name="state" placeholder="State" onChange={(e)=>{setStates(e.target.value)}} value={states}></input>
+       <input type="text" name="pincode" placeholder="Pincode" onChange={(e)=>{setPincode(e.target.value)}} value={pincode}></input>
+       <input type="email" name="email" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}} value={email}></input>
        <input type="date" name="dob" onChange={(e)=>{setDob(e.target.value)}} value={dob}></input> 
        <input type="text" name="fatherName" placeholder="Father's Name" onChange={(e)=>{setFname(e.target.value)}} value={fname}></input> 
        <input type="text" name="motherName" placeholder="Mother's Name" onChange={(e)=>{setMname(e.target.value)}} value={mname}></input>
      
-<<<<<<< HEAD
-        <button type="submit" onClick={(e)=>{props.addStudent({name,enroll,address,dob,fname,mname});setName("");setEnroll("");setAddress("");setDob(null);setFname("");setMname("")}}>Add</button>
+       <button type="submit" onClick={(e)=>{props.addStudent({name,enroll,address,city,states,pincode,email,dob,fname,mname});setName("");setEnroll("");setAddress("");setDob(null);setFname("");setMname("")}}>Add</button>
         <Link to="/admin/admin_student">Close</Link> 
-=======
-        <button type="submit" onClick={(e)=>{props.addInfo({name,enroll,address,dob,fname,mname});setName("");setEnroll("");setAddress("");setDob(null);setFname("");setMname("")}}>Add</button>
-        <Link to="/admin/admin_student">Cancel</Link> 
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
     </div>
 )
 }
 
-<<<<<<< HEAD
 function Dashboard(props){
     return (
         <React.Fragment>
@@ -226,8 +176,6 @@ function Dashboard(props){
     )
 }
 
-=======
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48
 function Add_faculty(props){
 
     const [name, setName] = React.useState("");
@@ -252,7 +200,6 @@ return (
 )
 }
 
-<<<<<<< HEAD
 function AddNews(props){
     const [title,setTitle] = React.useState(null);
     const [description,setDescription] = React.useState(null);
@@ -266,5 +213,3 @@ function AddNews(props){
     )
 }
 
-=======
->>>>>>> 5f47586b8aa7beb81a08edaffa42dd47741e5e48

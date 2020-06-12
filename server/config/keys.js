@@ -1,4 +1,4 @@
 module.exports = {
-    mongoURI: "mongodb+srv://hardik_aswal:;Arctic39wolf;;13@cluster0-zlw0s.mongodb.net/test?retryWrites=true&w=majority",
+    mongoURI: "mongodb://localhost:27017/college-management-system",
     secretOrKey: "secret"
   };

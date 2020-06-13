@@ -16,7 +16,6 @@ class Faculty extends React.Component{
     //*************************************NEWLY ADDED CODE STARTS***************************************// 
 
     handleLogin = (e) => {
-        console.log('Inside Handle Login');
         const credentials = {
             id:this.state.id,
             password:this.state.password
@@ -32,7 +31,6 @@ class Faculty extends React.Component{
                         decoded:jwtDecode(response.headers['x-auth-token']),
                         isAuthenticated:true
                     })
-                    //this.state.decoded = jwtDecode(response.headers['x-auth-token']);
                     console.log(this.state.decoded);
                 }
                 return response.data;
@@ -73,6 +71,7 @@ class Faculty extends React.Component{
             }
         //*************************NEWLY ADDED CODE ENDS ***************************//
         else{
+        const decoded = jwtDecode(localStorage.getItem('faculty'));
         return(
             <React.Fragment>
             <div id="navbar">
@@ -83,7 +82,7 @@ class Faculty extends React.Component{
                 <ul>
                     <Link to="/faculty" className="Link"><li ><i className="fas fa-th fa-lg"></i>Dashboard</li></Link>
                     <Link to="/admin/student" className="Link"><li><i className="fas fa-user-graduate fa-lg"></i>Students</li></Link>
-                    <Link to="/admin/faculty" className="Link"><li><i className="fas fa-chalkboard-teacher fa-lg"></i>Faculty</li></Link>
+                    <Link to="/faculty/attendance" className="Link"><li><i className="fas fa-chalkboard-teacher fa-lg"></i>Attendance</li></Link>
                     <li><i class="fas fa-building fa-lg"></i>Departments</li>
                     <li><i class="fas fa-book fa-lg"></i>Courses</li>
                     <li><i class="fas fa-school fa-lg"></i>Classes</li>
@@ -96,7 +95,8 @@ class Faculty extends React.Component{
             </div>
 
             <div id="right">
-                <Route path="/faculty" exact render={(e)=><Dashboard student={this.state.student} faculty={this.state.faculty} news={this.state.news}></Dashboard>}></Route>
+                <Route path="/faculty" exact render={(e)=><Dashboard decoded={this.state.decoded} student={this.state.student} faculty={this.state.faculty} news={this.state.news}></Dashboard>}></Route>
+                <Route path="/faculty/attendance" render={e=><Attendance student={this.props.student}></Attendance>}></Route>
                 <Route path="/admin/faculty" render={(e)=><MngFclt addFaculty={this.addFaculty.bind(this)} faculty={this.state.faculty}></MngFclt>}></Route>
                 <Route path="/admin/student" render={(e)=><MngStd addStudent={this.addStudent.bind(this)} student={this.state.student}></MngStd>}></Route>    
                 <Route path="/admin/news" render={(e)=><AddNews AddNews={this.AddNews.bind(this)}></AddNews>}></Route>
@@ -105,6 +105,38 @@ class Faculty extends React.Component{
         </React.Fragment>
         )}
     }
+}
+
+function Dashboard(props){
+    return (
+        <React.Fragment>
+        <div className="dashboard-head">
+            <h2>Dashboard</h2>
+        </div>
+        <div className="dashboard">
+            <div className="banner">
+                <div className="banner-info">
+                    {jwtDecode(localStorage.getItem('faculty')).firstName +" "+jwtDecode(localStorage.getItem('faculty')).lastName}
+                </div>
+            </div>
+        </div>
+        </React.Fragment>
+    )
+}
+
+function Attendance(props){
+    const decoded = jwtDecode(localStorage.getItem('faculty'));
+    console.log("Decoded:",decoded);
+    return (
+        <React.Fragment>
+        <div className="attendance-head">
+            <h2>Attendance</h2>
+        </div>
+        <div className="attendance">
+    {props.student.map((x)=>(x.branch == decoded.branch.toLowerCase()) ? <div>{x.firstName+" "+x.lastName}<br/>{x.enroll}</div>:console.log(x.branch+" "+decoded.branch))}
+        </div>
+        </React.Fragment>
+    )
 }
 
 function MngStd(props){
@@ -618,22 +650,6 @@ return (
         <br/>
     </div>
 )}
-
-function Dashboard(props){
-    return (
-        <React.Fragment>
-        <div className="dashboard-head">
-            <h2>Dashboard</h2>
-        </div>
-        <div className="dashboard">
-            <div className="banner">
-                <div className="banner-info">
-                </div>
-            </div>
-        </div>
-        </React.Fragment>
-    )
-}
 
 function Add_faculty(props){
 

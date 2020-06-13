@@ -31,7 +31,8 @@ const courseSchema = new mongoose.Schema ({
       required:true
    },
    courseDept:{
-      type:String
+      type:String,
+      required:true
    },
    c_students:{
       type:[String]

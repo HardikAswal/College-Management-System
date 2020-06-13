@@ -311,12 +311,12 @@ body{
     color:#fff;
 }
 
-.student-head, .faculty-head, .department-head, .news-head, .course-head{
+.student-head, .faculty-head, .department-head, .news-head, .course-head,.attendance-head{
     margin-left: 25px;
     color: #021A3D;
 }
 
-.student-head h2,.faculty-head h2, .department-head h2, .news-head h2, .course-head h2{
+.student-head h2,.faculty-head h2, .department-head h2, .news-head h2, .course-head h2,.attendance-head h2{
     display: inline;
 }
 

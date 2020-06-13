@@ -69,8 +69,24 @@ router.post("/login",async(req, res) => {
 
   const payload = {
     id:faculty._id,
-    name: faculty.firstName+" "+faculty.lastName,
+    firstName: faculty.firstName,
+    middleName:faculty.middleName,
+    lastName:faculty.lastName,
     faculty_id:faculty.id,
+    gender: faculty.gender,
+    dob: faculty.dob,
+    mob_no: faculty.mob_no,
+    email: faculty.email,
+    altEmail: faculty.altEmail,
+    address1: faculty.address1, 
+    address2: faculty.address2,
+    city: faculty.city,
+    pincode: faculty.pincode,
+    state: faculty.state,
+    country: faculty.country,
+    courses: faculty.courses,
+    dept:faculty.dept,
+    branch: faculty.branch,
     role:"Faculty"
   };
 

@@ -10,8 +10,8 @@ class Admin extends React.Component{
     constructor(props){
         super(props);
         this.state={};
-        this.state.student=[];
-        this.state.faculty=[];
+        this.state.student=this.props.student;
+        this.state.faculty=this.props.faculty;
         this.state.news=[];
         this.state.department=[];
         this.state.course=[];
@@ -21,35 +21,41 @@ class Admin extends React.Component{
         this.state.decoded={}
     }
 
+    componentDidMount(props){
+        this.setState({
+            student:this.props.student
+        })
+    }
+
     componentDidMount(){
-        axios.get('http://localhost:5000/api/users')
-             .then(res => {
-                const students = res.data;
-                this.setState({
-                    student:students
-                });
-             });
-        axios.get('http://localhost:5000/api/faculty')
-            .then(res => {
-            const faculty = res.data;
-            this.setState({
-                faculty:faculty
-            });
-        });  
-        axios.get('http://localhost:5000/api/admin/department')
-            .then(res => {
-            const departments = res.data;
-            this.setState({
-                department:departments
-            });
-        });   
-        axios.get('http://localhost:5000/api/admin/news')
-            .then(res => {
-            const news = res.data;
-            this.setState({
-                news:news
-            });
-        });   
+        // axios.get('http://localhost:5000/api/users')
+        //      .then(res => {
+        //         const students = res.data;
+        //         this.setState({
+        //             student:students
+        //         });
+        //      });
+        // axios.get('http://localhost:5000/api/faculty')
+        //     .then(res => {
+        //     const faculty = res.data;
+        //     this.setState({
+        //         faculty:faculty
+        //     });
+        // });  
+        // axios.get('http://localhost:5000/api/admin/department')
+        //     .then(res => {
+        //     const departments = res.data;
+        //     this.setState({
+        //         department:departments
+        //     });
+        // });   
+        // axios.get('http://localhost:5000/api/admin/news')
+        //     .then(res => {
+        //     const news = res.data;
+        //     this.setState({
+        //         news:news
+        //     });
+        // });   
     }
 
     //***********************NEWLY ADDED CODE STARTS ******************************//
@@ -92,79 +98,79 @@ class Admin extends React.Component{
 
     //*************************************NEWLY ADDED CODE ENDS ****************************************//
 
-    addStudent(student_info){
-        console.log(student_info);
-        let {student}=this.state;
-        student.push(student_info);
-        console.log(student);
+    // addStudent(student_info){
+    //     console.log(student_info);
+    //     let {student}=this.state;
+    //     student.push(student_info);
+    //     console.log(student);
 
-        axios.post('http://localhost:5000/api/users/register',student_info)
-        .then(res => {
-            this.setState({
-                student:student
-            })
-        })
-        .catch(err => {
-            console.log(err)
-        })
+    //     axios.post('http://localhost:5000/api/users/register',student_info)
+    //     .then(res => {
+    //         this.setState({
+    //             student:student
+    //         })
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
        
-        console.log(this.state.student);
-    }
+    //     console.log(this.state.student);
+    // }
     
-    addFaculty(faculty_info){
-        console.log(faculty_info);
-        let {faculty}=this.state;
-        faculty.push(faculty_info);
-        console.log(faculty)
-        axios.post('http://localhost:5000/api/faculty/register',faculty_info)
-        .then(res => {
-            this.setState({
-                faculty:faculty
-            })
-        })
-        .catch(err => {
-            console.log(err)
-        })
-        console.log(this.state.faculty);
-    }
+    // addFaculty(faculty_info){
+    //     console.log(faculty_info);
+    //     let {faculty}=this.state;
+    //     faculty.push(faculty_info);
+    //     console.log(faculty)
+    //     axios.post('http://localhost:5000/api/faculty/register',faculty_info)
+    //     .then(res => {
+    //         this.setState({
+    //             faculty:faculty
+    //         })
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
+    //     console.log(this.state.faculty);
+    // }
 
-    addNews(info){
-        console.log(info);
-        let {news} = this.state;
-        news.push(info);
-        axios.post('http://localhost:5000/api/admin/news',info)
-            .then(res=>{
-                this.setState({
-                    news:news
-                })
-            })
-            .catch(err=>console.log(err));
-        console.log(this.state.news);
-    }
+    // addNews(info){
+    //     console.log(info);
+    //     let {news} = this.state;
+    //     news.push(info);
+    //     axios.post('http://localhost:5000/api/admin/news',info)
+    //         .then(res=>{
+    //             this.setState({
+    //                 news:news
+    //             })
+    //         })
+    //         .catch(err=>console.log(err));
+    //     console.log(this.state.news);
+    // }
 
-    addDepartment(dept){
-     let department=this.state.department;
-     department.push(dept);
-     axios.post('http://localhost:5000/api/admin/department',dept)
-     .then(res=>{
-         this.setState({
-            department:dept
-         });
-     }) 
-     .catch(err => console.log(err));  
-    }
+    // addDepartment(dept){
+    //  let department=this.state.department;
+    //  department.push(dept);
+    //  axios.post('http://localhost:5000/api/admin/department',dept)
+    //  .then(res=>{
+    //      this.setState({
+    //         department:dept
+    //      });
+    //  }) 
+    //  .catch(err => console.log(err));  
+    // }
 
-    addCourse(info){
-        let course = this.state.course;
-        course.push(info);
-        axios.post('http://localhost:5000/api/admin/course',info)
-        .then(res=>{
-            this.setState({
-                course:course
-            });
-        })
-        .catch(err=> console.log(err));
-    }
+    // addCourse(info){
+    //     let course = this.state.course;
+    //     course.push(info);
+    //     axios.post('http://localhost:5000/api/admin/course',info)
+    //     .then(res=>{
+    //         this.setState({
+    //             course:course
+    //         });
+    //     })
+    //     .catch(err=> console.log(err));
+    // }
 
     render(){ 
         //***********************NEWLY ADDED CODE ***************************//
@@ -205,14 +211,14 @@ class Admin extends React.Component{
                 </div>
 
                 <div id="right">
-                    <Route path="/admin" exact render={(e)=><Dashboard student={this.state.student} faculty={this.state.faculty} news={this.state.news}></Dashboard>}></Route>
-                    <Route path="/admin/faculty" render={(e)=><MngFclt addFaculty={this.addFaculty.bind(this)} faculty={this.state.faculty}></MngFclt>}></Route>
-                    <Route path="/admin/student" render={(e)=><MngStd addStudent={this.addStudent.bind(this)} student={this.state.student}></MngStd>}></Route>    
-                    <Route path="/admin/news" render={(e)=><AddNews news={this.state.news} addNews={this.addNews.bind(this)}></AddNews>}></Route>
-                    <Route path="/admin/addStudent" render={(e)=><AddStudent addStudent={this.addStudent.bind(this)}></AddStudent>}></Route>
-                    <Route path="/admin/addFaculty" render={(e)=><Add_faculty addFaculty={this.addFaculty.bind(this)}></Add_faculty>}></Route>
-                    <Route path="/admin/department" render={(e)=><AddDepartment department={this.state.department} addDepartment={this.addDepartment.bind(this)}></AddDepartment>}></Route>
-                    <Route path="/admin/course" render={(e)=><AddCourse course={this.state.course} department={this.state.department} addCourse={this.addCourse.bind(this)}></AddCourse>}></Route>
+                    <Route path="/admin" exact render={(e)=><Dashboard student={this.props.student} faculty={this.props.faculty} news={this.props.news}></Dashboard>}></Route>
+                    <Route path="/admin/faculty" render={(e)=><MngFclt addFaculty={this.props.addFaculty.bind(this)} faculty={this.props.faculty}></MngFclt>}></Route>
+                    <Route path="/admin/student" render={(e)=><MngStd addStudent={this.props.addStudent.bind(this)} student={this.props.student}></MngStd>}></Route>    
+                    <Route path="/admin/news" render={(e)=><AddNews news={this.props.news} addNews={this.props.addNews.bind(this)}></AddNews>}></Route>
+                    <Route path="/admin/addStudent" render={(e)=><AddStudent department={this.props.department} course={this.props.course} addStudent={this.props.addStudent.bind(this)}></AddStudent>}></Route>
+                    <Route path="/admin/addFaculty" render={(e)=><Add_faculty addFaculty={this.props.addFaculty.bind(this)}></Add_faculty>}></Route>
+                    <Route path="/admin/department" render={(e)=><AddDepartment department={this.props.department} addDepartment={this.props.addDepartment.bind(this)}></AddDepartment>}></Route>
+                    <Route path="/admin/course" render={(e)=><AddCourse course={this.props.course} department={this.props.department} addCourse={this.props.addCourse.bind(this)}></AddCourse>}></Route>
                 </div>
             </React.Fragment>
         )}
@@ -325,7 +331,7 @@ function AddStudent(props){
     const [mOccu, setmOccu] = React.useState("");
 
     const [enroll, setEnroll] = React.useState("");
-    const [course,setCourse] = React.useState(null);
+    const [department,setCourse] = React.useState(null);
     const [branch,setBranch] = React.useState(null);
 
 return (
@@ -642,111 +648,96 @@ return (
 
     <div className="form-acad">
        <input type="text" name="enroll_no" placeholder="Enrollment Number" onChange={(e)=>{setEnroll(e.target.value)}} value={enroll}></input> 
-       <select value={course} onChange={(e)=>setCourse(e.target.value)}>
+       <select value={department} onChange={(e)=>setCourse(e.target.value)}>
            <option value="">Course</option>
-           <option value="B.Tech">Bachelor of Technology (B.Tech)</option>
-           <option value="BBA">Bachelor of Business Administration (BBA)</option>
-           <option value="B.Sc">Bachelor of Science (B.Sc)</option>
-           <option value="B.Comm>">Bachelor of Commerce (B.Comm)</option>
-           <option value="B.A.">Bachelor of Arts (B.A)</option>
-           <option value="B.J.M.C">Bachelor of Journalism & Mass Communication (B.J.M.C)</option>
-           <option value="M.Tech">Masters of Technology (M.Tech)</option>
-           <option value="MBA">Masters of Business Administration (MBA)</option>
-           <option value="M.Sc">Masters of Science (M.Sc)</option>
-           <option value="M.Comm">Masters of Commerce (M.Comm)</option>
-           <option value="M.A.">Masters of Arts (M.A)</option>
+            {props.department.map((x)=>(<option>{x.dept_name}</option>))}
+           
        </select>
 
-       {course == "B.Tech" ? 
+       {department == "Bachelor of Technology (B.Tech)" ? 
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            <option value="btech-auto">Automobile</option>
-            <option value="btech-it">IT</option>
-            <option value="btech-cse">CSE</option>
-            <option value="btech-ece">ECE</option>
-            <option value="btech-ee">EE</option>
-            <option value="btech-civ">Cvil</option>
-            <option value="btech-chem">Chemical</option>
-            <option value="btech-mech">Mechanical</option>
-            <option value="btech-mech">Mechatronics</option>
+            {props.course.map(x=>x.courseDept===department ? x.c_name:null)}
            </select>
        </span> : null}
 
-       {course == "B.Sc" ? 
+       {department == "B.Sc" ? 
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            <option value="bsc-phy">Physics</option>
-            <option value="bsc-chem">Chemistry</option>
-            <option value="bsc-math">Mathematics</option>
-            <option value="bsc-bio">Biology</option>
-            <option value="bsc-evs">Environmental Science</option>
-            <option value="bsc-hs">Home Science</option>
+            <option value="B.Sc-phy">Physics</option>
+            <option value="B.Sc-chem">Chemistry</option>
+            <option value="B.Sc-math">Mathematics</option>
+            <option value="B.Sc-bio">Biology</option>
+            <option value="B.Sc-evs">Environmental Science</option>
+            <option value="B.Sc-hs">Home Science</option>
            </select>
        </span> : null}
 
-       {course == "B.A." ? 
+       {department == "B.A." ? 
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            <option value="ba-eng">English</option>
-            <option value="ba-psy">Psychology</option>
-            <option value="ba-psc">Political Science</option>
-            <option value="ba-pr">Public Relations</option>
-            <option value="ba-soc">Sociology</option>
-            <option value="ba-eco">Economics</option>
-            <option value="ba-geo">Geography</option>
+            <option value="B.A.-eng">English</option>
+            <option value="B.A.-psy">Psychology</option>
+            <option value="B.A.-psc">Political Science</option>
+            <option value="B.A.-pr">Public Relations</option>
+            <option value="B.A.-soc">Sociology</option>
+            <option value="B.A.-eco">Economics</option>
+            <option value="B.A.-geo">Geography</option>
            </select>
        </span> : null}
 
-       {course == "M.Tech" ? 
+       {department == "M.Tech" ? 
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            <option value="mtech-auto">Automobile</option>
-            <option value="mtech-it">IT</option>
-            <option value="mtech-cse">CSE</option>
-            <option value="mtech-ece">ECE</option>
-            <option value="mtech-ee">EE</option>
-            <option value="mtech-civ">Cvil</option>
-            <option value="mtech-chem">Chemical</option>
-            <option value="mtech-mech">Mechanical</option>
-            <option value="mtech-mech">Mechatronics</option>
+            <option value="M.Tech-auto">Automobile</option>
+            <option value="M.Tech-it">IT</option>
+            <option value="M.Tech-cse">CSE</option>
+            <option value="M.Tech-ece">ECE</option>
+            <option value="M.Tech-ee">EE</option>
+            <option value="M.Tech-civ">Cvil</option>
+            <option value="M.Tech-chem">Chemical</option>
+            <option value="M.Tech-mech">Mechanical</option>
+            <option value="M.Tech-mech">Mechatronics</option>
            </select>
        </span> : null}
        
-       {course == "M.Sc" ? 
+       {department == "M.Sc" ? 
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            <option value="msc-phy">Physics</option>
-            <option value="msc-chem">Chemistry</option>
-            <option value="msc-math">Mathematics</option>
-            <option value="msc-bio">Biology</option>
-            <option value="msc-evs">Environmental Science</option>
-            <option value="msc-hs">Home Science</option>
+            <option value="M.Sc-phy">Physics</option>
+            <option value="M.Sc-chem">Chemistry</option>
+            <option value="M.Sc-math">Mathematics</option>
+            <option value="M.Sc-bio">Biology</option>
+            <option value="M.Sc-evs">Environmental Science</option>
+            <option value="M.Sc-hs">Home Science</option>
            </select>
        </span> : null}
 
-       {course == "M.A." ? 
+       {department == "M.A." ? 
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            <option value="ma-eng">English</option>
-            <option value="ma-psy">Psychology</option>
-            <option value="ma-psc">Political Science</option>
-            <option value="ma-pr">Public Relations</option>
-            <option value="ma-soc">Sociology</option>
-            <option value="ma-eco">Economics</option>
-            <option value="ma-geo">Geography</option>
+            <option value="M.A.-eng">English</option>
+            <option value="M.A.-psy">Psychology</option>
+            <option value="M.A.-psc">Political Science</option>
+            <option value="M.A.-pr">Public Relations</option>
+            <option value="M.A.-soc">Sociology</option>
+            <option value="M.A.-eco">Economics</option>
+            <option value="M.A.-geo">Geography</option>
            </select>
        </span> : null}
     </div>
        <br/>
+       <br/>
+       <br/>
        <button type="submit" onClick={(e)=>{props.addStudent({ firstName,middleName,lastName,gender,
         dob,mob_no,email,altEmail,address1,address2,city,pincode,state,country,fname,fat_mob_no,fth_email,fOccu,mname,mth_mob_no,
-        mth_email,mOccu,enroll,course,branch});
+        mth_email,mOccu,enroll,department,branch});
         setFirstName("");setMiddleName("");setLastName("");setGender("");setDob("");setMob_no("");setEmail("");setAltEmail("");
         setAddress1("");setAddress2("");setCity("");setPincode("");setstate("");setCountry("");setFname("");setFatMob_no("");setFthEmail("");
         setfOccu("");setMname("");setMthMob_no("");setMthEmail("");setmOccu("");setEnroll("");setCourse("");setBranch("")}}>Add</button>
@@ -1304,6 +1295,7 @@ function AddCourse(props){
             <h2>Courses</h2>
             <input type="text" name="Course Name" placeholder="Course Name" value={c_name} onChange={(e)=>{setC_name(e.target.value)}}></input>
             <select value={courseDept} onChange={(e)=>setCourseDept(e.target.value)}>
+                <option value={null}>Select Department</option>
                 {props.department.map((x)=>(
                     <option value={x.dept_name}>{x.dept_name}</option>
                 ))}

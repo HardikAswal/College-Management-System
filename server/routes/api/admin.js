@@ -94,6 +94,10 @@ router.post('/news',async(req,res)=>{
 });
 
 //CRUD Functions for Course
+router.get('/course',async(req,res)=>{
+    const course = await Course.find();
+    res.send(course);
+});
 router.post('/course',async(req,res)=>{
     let course = new Course({
         c_name:req.body.c_name,

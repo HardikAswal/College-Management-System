@@ -28,6 +28,7 @@ module.exports = function validateRegisterInput(data) {
   data.mth_email = !isEmpty(data.mth_email) ? data.mth_email : "";
   data.mOccu = !isEmpty(data.mOccu) ? data.mOccu : "";
   data.enroll = !isEmpty(data.enroll) ? data.enroll : "";
+  data.deptartment = !isEmpty(data.department) ? data.department:"";
   data.course = !isEmpty(data.course) ? data.course : "";
   data.branch = !isEmpty(data.branch) ? data.branch : "";
 
@@ -114,8 +115,8 @@ module.exports = function validateRegisterInput(data) {
     errors.name18 = "Emrollment No. is required"
   } 
    //Mobile Number checks
-   if (Validator.isEmpty(data.course)) {
-    errors.name19 = "Course is required"
+   if (Validator.isEmpty(data.department)) {
+    errors.name19 = "Department is required"
   } 
   
 return {

@@ -39,8 +39,7 @@ const UserSchema = new Schema({
     unique:true
   },
   altEmail: {
-    type: String,
-    unique:true
+    type: String
   },
   address1: {
     type: String,
@@ -99,12 +98,16 @@ const UserSchema = new Schema({
     type:String,
     required:true
   },
-  course: {
-    type: String,
-    required:true,
+  department:{
+    type:String,
+    required:true
   },
   branch: {
-    type:String
+    type:String,
+    required:true
+  },
+  coursesEnrolledIn: {
+    type: Array
   }
 });
 module.exports = User = mongoose.model("users", UserSchema);

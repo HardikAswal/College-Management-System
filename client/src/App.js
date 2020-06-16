@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as  Router,Route,Link} from 'react-router-dom';
+import {BrowserRouter as  Router,Route,Link, Redirect} from 'react-router-dom';
 import Admin from "./Components/Admin/admin";
 import Faculty from "./Components/Faculty/faculty";
 import Student from "./Components/Student/student";
@@ -16,7 +16,9 @@ class App extends React.Component {
     this.state.faculty=[];
     this.state.news=[];
     this.state.department=[];
+    this.state.branch=[];
     this.state.course=[];
+    this.state.timetable=[];
     this.state.id=null; //NEW
     this.state.password=null; //NEW
     this.state.isAuthenticated=false; //NEW
@@ -47,13 +49,20 @@ class App extends React.Component {
                 department:departments
             });
       }); 
-    axios.get('http://localhost:5000/api/admin/course')
+    axios.get('http://localhost:5000/api/admin/branch')
         .then(res => {
-            const course = res.data;
+            const branch = res.data;
             this.setState({
-                course:course
+                branch:branch
             });
-      });       
+      });
+    axios.get('http://localhost:5000/api/admin/course')
+    .then(res => {
+        const course = res.data;
+        this.setState({
+            course:course
+        });
+      });   
     axios.get('http://localhost:5000/api/admin/news')
         .then(res => {
             const news = res.data;
@@ -124,18 +133,74 @@ class App extends React.Component {
     .catch(err => console.log(err));  
    }
 
-   addCourse(info){
-       let course = this.state.course;
-       course.push(info);
-       axios.post('http://localhost:5000/api/admin/course',info)
+   addBranch(info){
+       let branch = this.state.branch;
+       branch.push(info);
+       axios.post('http://localhost:5000/api/admin/branch',info)
        .then(res=>{
            this.setState({
-               course:course
+               branch:branch
            });
        })
        .catch(err=> console.log(err));
    }
 
+   addCourse(course){
+     let courses = this.state.course;
+     courses.push(course);
+     axios.post('http://localhost:5000/api/admin/course',course)
+          .then(res=>{
+            this.setState({
+              course:courses
+            });
+          })
+          .catch(err=>console.log(err));  
+   }
+
+   
+    EnrollInCourse = (coursesEnrolled,id,name) => {
+      console.log(coursesEnrolled);
+
+      axios.put(`http://localhost:5000/api/users/update/${id}`,coursesEnrolled)
+           .then(res=>{
+              console.log(res.data);
+              let students = this.state.student;
+              students[id]=res.data;
+              this.setState({
+                student:students
+              });
+              console.log(this.state.student);
+            })
+            .catch(err => console.log(err));
+
+      axios.put(`http://localhost:5000/api/admin/course/${coursesEnrolled._id}`,{id,name})
+      .then(res=>{
+          console.log(res.data);
+          let course = this.state.course;
+          course[id]=res.data;
+          this.setState({
+            course:course
+          });
+          console.log(this.state.course);
+        })
+        .catch(err => console.log(err));      
+    }
+    
+    addTimetable = (info) => {
+      console.log(info);
+      if(!info) return;
+
+      const data = new FormData();
+      data.append('timetable',info.timetable.file);
+
+      axios.post('http://localhost:5000/api/admin/timetable',data)
+           .then(res => {
+             console.log(res.data)
+           })
+           .catch(err=>console.log(err));
+    }
+
+    
 //*******************NEW ENDS ***********************************//
 
   render(){
@@ -150,11 +215,16 @@ class App extends React.Component {
                                   addNews={this.addNews.bind(this)}
                                   department={this.state.department}
                                   addDepartment={this.addDepartment.bind(this)}
+                                  branch={this.state.branch}
+                                  addBranch={this.addBranch.bind(this)}
                                   course={this.state.course}
-                                  addCourse={this.addCourse.bind(this)}>
+                                  addCourse={this.addCourse.bind(this)}
+                                  timetable={this.state.timetable}
+                                  addTimetable={this.addTimetable.bind(this)}>
         </Admin>}></Route>
-        <Route path="/faculty" render={e=><Faculty student={this.state.student} faculty={this.state.faculty}></Faculty>}></Route>
-        <Route path="/" exact render={e=><Student></Student>}></Route>
+        <Route path="/faculty" render={e=><Faculty branch={this.state.branch} student={this.state.student} news={this.state.news} course={this.state.course} faculty={this.state.faculty}></Faculty>}></Route>
+        <Route path="/student" render={e=><Student branch={this.state.branch} course={this.state.course} news={this.state.news} EnrollInCourse={this.EnrollInCourse.bind(this)}></Student>}></Route>
+        <Route path="/" exact><Redirect to="/student"></Redirect></Route>
         <Route component={noMatch}></Route>
       </React.Fragment>
     )

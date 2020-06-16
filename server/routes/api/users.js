@@ -50,8 +50,9 @@ router.post("/register", async(req, res) => {
           mth_mob_no: req.body.mth_mob_no,
           mth_email: req.body.mth_email,
           mOccu: req.body.mOccu,
-          course: req.body.course,
-          branch: req.body.branch 
+          department: req.body.department,
+          branch: req.body.branch,
+          coursesEnrolledIn:req.body.coursesEnrolledIn
         });
 
         const salt =await bcrypt.genSalt(10);
@@ -83,12 +84,37 @@ router.post("/login",async(req, res) => {
     id:user._id,
     name: user.firstName+" "+user.lastName,
     enroll:user.enroll,
+    gender:user.gender,
+    dob:user.dob,
+    email:user.email,
+    altEmail:user.altEmail,
+    address1:user.address1,
+    address2:user.address2,
+    city:user.city,
+    pincode:user.pincode,
+    state:user.state,
+    country:user.country,
+    department:user.department,
+    branch:user.branch,
     role:"Student"
   };
 
   const token = await jwt.sign(payload,keys.secretOrKey,{expiresIn:31556926});
 
   res.header('x-auth-token',token).send("Successfully logged in.");
+  });
+
+  router.put('/update/:id',async(req,res)=>{
+    console.log(req.body)
+    const user = await User.findByIdAndUpdate(req.params.id,{
+      $push:{
+        coursesEnrolledIn:req.body
+      }
+    },{new:true});
+  
+    if (!user) return res.status(404).send('The user with the given ID was not found.');
+    
+    res.send(user);
   });
 
   module.exports = router;

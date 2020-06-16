@@ -11,7 +11,7 @@ const app = express();
 // DB Config
 const db = require("./config/keys").mongoURI;
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/college-management-system',{useNewUrlParser: true,useUnifiedTopology:false ,useCreateIndex:true })
+mongoose.connect('mongodb://localhost:27017/college-management-system',{useNewUrlParser: true,useUnifiedTopology:false ,useCreateIndex:true,useFindAndModify:false })
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
 

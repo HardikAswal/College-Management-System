@@ -181,6 +181,11 @@ body{
     padding: 0;
 }
 
+.dashboard .banner-img{
+    margin-bottom: 5px;
+    margin-left: 30px;
+}
+
 .dashboard .banner{
     margin:30px 15px 10px 10px; 
     width: 335px;
@@ -188,14 +193,15 @@ body{
     text-align: center;
     border-radius: 15px;
     display:flex; 
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-end;
-    justify-content: center; 
+    justify-content: space-between; 
     padding-right: 30px;
     font-size: 18px;
     color: #fff;
     text-transform: uppercase;
 }
+
 
 .dashboard .banner-info{
     display: flex;
@@ -226,7 +232,7 @@ body{
 
 .newsBlock{
     background-color: #bd86b5;
-    width: 450px;
+    /* width: 480px; */
     height: 300px;
     padding:15px;
     margin-left: 25px;
@@ -256,6 +262,61 @@ body{
     padding: 3px;
     width: 430px;
     color: rgb(29, 27, 27);
+}
+
+.banner2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.management{
+    /* background-color: #bd86b5; */
+    /* width: 500px; */
+    height: 330px;
+    margin-right: 25px;
+    margin-top: 25px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.mgmt{
+    background-color: rgb(38, 120, 175);
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    padding-top: 25px;
+}
+
+.mgmt span {
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.mgmt p {
+    margin-top: auto;
+    font-size: 40px;
+    color: #fff;
+}
+
+.mgmt-1{
+    margin: 0 5px 5px 0;
+    background-color: #9177aa !important;
+}
+.mgmt-2{
+    margin: 0 0 5px 5px;
+    background-color: #9177aa !important;
+}
+.mgmt-3{
+    margin: 5px 5px 0 0;
+    background-color: #9177aa !important;
+}
+.mgmt-4{
+    margin: 5px 0 0 5px;
+    background-color: #9177aa !important;
 }
 
 /* Function Manage & Add Student */
@@ -311,12 +372,12 @@ body{
     color:#fff;
 }
 
-.student-head, .faculty-head, .department-head, .news-head, .course-head,.attendance-head{
+.student-head, .faculty-head, .department-head, .news-head, .course-head,.attendance-head,.std-course-head{
     margin-left: 25px;
     color: #021A3D;
 }
 
-.student-head h2,.faculty-head h2, .department-head h2, .news-head h2, .course-head h2,.attendance-head h2{
+.student-head h2,.faculty-head h2, .department-head h2, .news-head h2, .course-head h2,.attendance-head h2,.std-course-head h2{
     display: inline;
 }
 
@@ -325,7 +386,7 @@ body{
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
-    width: 950px;
+    width: 980px;
     border: none;
     border-radius: 5px;
     text-align: center;
@@ -457,6 +518,101 @@ body{
     padding: 6px;
     width: 190px;
 }
+
+.std-course span{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+}
+
+.std-course h3{
+    margin: 25px 0 0 25px;
+    color: #021A3D;
+}
+
+.std-course span div{
+    border-radius: 5px;
+    width: 290px;
+    padding: 10px;
+    background: rgb(214, 214, 214);
+    margin: 10px 0 10px 25px;
+}
+
+.std-course span div p{
+    float: left;
+}
+
+.std-course span div button{
+    padding: 4px;
+    float: right;
+    width: 75px;
+}
+
+.std-info{
+    display: block;
+}
+
+.std-infoTable{
+    width: 100%;
+    margin:auto;
+    margin-top: 30px;
+}
+
+.std-infoTable thead tr{
+    background: rgb(214, 214, 214);
+    margin:2px;
+    text-align: center;
+}
+.std-infoTable thead tr th{
+    padding: 10px 10px;
+}
+.std-infoTable tbody td{
+    background: rgb(214, 214, 214);
+    margin:2px;
+    text-align: center;
+    padding: 10px 10px;
+}
+
+.news{
+    display: block;
+    text-align: center;
+}
+
+.news-block{
+    display: block;
+}
+
+.attendance{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    margin: 30px 25px 0 25px;
+}
+
+.attendance button{
+    padding: 7px;
+    background: rgb(214, 214, 214);
+    border: none;
+    margin: 15px 15px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.courseAttendance{
+    border-radius: 5px;
+    background: rgb(214, 214, 214);
+    padding: 7px;
+    width: fit-content;
+}
+
+.timetable-list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 30px 15px 0px 25px ;
+}
+
+
+
 
 
 

@@ -39,9 +39,9 @@ router.post("/register", async(req, res) => {
         pincode: req.body.pincode,
         state: req.body.state,
         country: req.body.country,
-        courses: req.body.courses,
         dept:req.body.dept,
-        branch: req.body.branch 
+        branch: req.body.branch,
+        coursesTaught:req.body.coursesTaught
     });
 
     const salt =await bcrypt.genSalt(10);
@@ -84,7 +84,7 @@ router.post("/login",async(req, res) => {
     pincode: faculty.pincode,
     state: faculty.state,
     country: faculty.country,
-    courses: faculty.courses,
+    coursesTaught: faculty.coursesTaught,
     dept:faculty.dept,
     branch: faculty.branch,
     role:"Faculty"
@@ -93,6 +93,18 @@ router.post("/login",async(req, res) => {
   const token = await jwt.sign(payload,keys.secretOrKey,{expiresIn:31556926});
 
   res.header('x-auth-token',token).send("Successfully logged in.");
+  });
+
+  router.put('/update/:id',async(req,res)=>{
+    const faculty = Faculty.findById(id);
+    if(!fauclty) return res.send(400).send('Faculty not found');
+
+    (await faculty).set({
+      coursesTaught:req.body
+    });
+
+    faculty=await faculty.save();
+    res.send(faculty);
   });
 
   function validateRegister(req){
@@ -105,7 +117,7 @@ router.post("/login",async(req, res) => {
         dob:Joi.string(),
         mob_no:Joi.number(),
         email:Joi.string(),
-        altEmail:Joi.string(),
+        altEmail:Joi.string().allow('').allow(null),
         address1:Joi.string(),
         address2:Joi.string(),
         city:Joi.string(),
@@ -113,7 +125,7 @@ router.post("/login",async(req, res) => {
         state:Joi.string(),
         country:Joi.string(),
         id:Joi.number(),
-        courses:Joi.array().items(Joi.string()),
+        coursesTaught:Joi.array().items(Joi.string()).allow(null).allow(''),
         dept:Joi.string(),
         branch:Joi.string().allow('').allow(null)
     }

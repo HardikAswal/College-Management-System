@@ -62,16 +62,15 @@ const FacultySchema = new Schema({
     type: Number,
     required:true
   },
-  courses: {
-    type: [String],
-    required:true,
-  },
   dept:{
     type:String,
     required:true
   },
   branch: {
     type:String
+  },
+  coursesTaught:{
+    type:[String]
   }
 });
 module.exports = Faculty = mongoose.model("faculty", FacultySchema);

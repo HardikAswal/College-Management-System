@@ -10,22 +10,22 @@ class Admin extends React.Component{
     constructor(props){
         super(props);
         this.state={};
-        this.state.student=this.props.student;
-        this.state.faculty=this.props.faculty;
-        this.state.news=[];
-        this.state.department=[];
-        this.state.course=[];
-        this.state.id=null; //NEW
+        // this.state.student=this.props.student;
+        // this.state.faculty=this.props.faculty;
+        // this.state.news=[];
+        // this.state.department=[];
+        // this.state.course=[];
+        // this.state.id=null; 
         this.state.password=null; //NEW
         this.state.isAuthenticated=false; //NEW
         this.state.decoded={}
     }
 
-    componentDidMount(props){
-        this.setState({
-            student:this.props.student
-        })
-    }
+    // componentDidMount(props){
+    //     this.setState({
+    //         student:this.props.student
+    //     })
+    // }
 
     componentDidMount(){
         // axios.get('http://localhost:5000/api/users')
@@ -178,6 +178,7 @@ class Admin extends React.Component{
             return (
             <div className="login-wrapper">
                 <div className="login"> 
+                    <h4 style={{color:"#fff"}}>Login as Administrator</h4>
                     <input type="text" name="id" placeholder="Enter ID" value={this.state.id} onChange={(e)=>this.setState({id:e.target.value})}/>
                     <br/>
                     <input type="password" name="password" placeholder="Enter Password" value={this.state.password} onChange={(e)=>this.setState({password:e.target.value})}/>
@@ -200,10 +201,10 @@ class Admin extends React.Component{
                         <Link to="/admin/student" className="Link"><li><i className="fas fa-user-graduate fa-lg"></i>Students</li></Link>
                         <Link to="/admin/faculty" className="Link"><li><i className="fas fa-chalkboard-teacher fa-lg"></i>Faculty</li></Link>
                         <Link to="/admin/department" className="Link"><li><i className="fas fa-building fa-lg"></i>Departments</li></Link> 
-                        <Link to="/admin/course" className="Link"><li><i className="fas fa-book fa-lg"></i>Courses</li></Link>
-                        <li><i className="fas fa-school fa-lg"></i>Classes</li>
+                        <Link to="/admin/branch" className="Link"><li><i className="fas fa-book fa-lg"></i>Branch</li></Link>
+                        <Link to="/admin/course" className="Link"><li><i className="fas fa-school fa-lg"></i>Course</li></Link>
                         <Link to="/admin/news" className="Link"><li><i className="fas fa-bell fa-lg"></i>News</li></Link>
-                        <li><i className="far fa-clock fa-lg"></i>Timetable</li>
+                        <Link to="/admin/timetable" className="Link"><li><i className="far fa-clock fa-lg"></i>Timetable</li></Link>
                         <li><i className="fas fa-credit-card fa-lg"></i>Payment</li>
                         <li><i className="fas fa-comment-alt fa-lg"></i>Messages</li>
                         <Link to="/admin"><button onClick={(e)=>this.logout()}>Logout</button></Link>
@@ -211,14 +212,16 @@ class Admin extends React.Component{
                 </div>
 
                 <div id="right">
-                    <Route path="/admin" exact render={(e)=><Dashboard student={this.props.student} faculty={this.props.faculty} news={this.props.news}></Dashboard>}></Route>
+                    <Route path="/admin" exact render={(e)=><Dashboard branch={this.props.branch} course={this.props.course} department={this.props.department} student={this.props.student} faculty={this.props.faculty} news={this.props.news}></Dashboard>}></Route>
                     <Route path="/admin/faculty" render={(e)=><MngFclt addFaculty={this.props.addFaculty.bind(this)} faculty={this.props.faculty}></MngFclt>}></Route>
                     <Route path="/admin/student" render={(e)=><MngStd addStudent={this.props.addStudent.bind(this)} student={this.props.student}></MngStd>}></Route>    
                     <Route path="/admin/news" render={(e)=><AddNews news={this.props.news} addNews={this.props.addNews.bind(this)}></AddNews>}></Route>
-                    <Route path="/admin/addStudent" render={(e)=><AddStudent department={this.props.department} course={this.props.course} addStudent={this.props.addStudent.bind(this)}></AddStudent>}></Route>
-                    <Route path="/admin/addFaculty" render={(e)=><Add_faculty addFaculty={this.props.addFaculty.bind(this)}></Add_faculty>}></Route>
+                    <Route path="/admin/course" render={(e)=><AddCourse branch={this.props.branch} department={this.props.department} course={this.props.course} addCourse={this.props.addCourse.bind(this)}></AddCourse>}></Route>
+                    <Route path="/admin/addStudent" render={(e)=><AddStudent department={this.props.department} branch={this.props.branch} addStudent={this.props.addStudent.bind(this)}></AddStudent>}></Route>
+                    <Route path="/admin/addFaculty" render={(e)=><Add_faculty course={this.props.course} department={this.props.department} branch={this.props.branch} addFaculty={this.props.addFaculty.bind(this)}></Add_faculty>}></Route>
                     <Route path="/admin/department" render={(e)=><AddDepartment department={this.props.department} addDepartment={this.props.addDepartment.bind(this)}></AddDepartment>}></Route>
-                    <Route path="/admin/course" render={(e)=><AddCourse course={this.props.course} department={this.props.department} addCourse={this.props.addCourse.bind(this)}></AddCourse>}></Route>
+                    <Route path="/admin/branch" render={(e)=><AddBranch branch={this.props.branch} department={this.props.department} addBranch={this.props.addBranch.bind(this)}></AddBranch>}></Route>
+                    <Route path="/admin/timetable" render={(e)=><TimeTable branch={this.props.branch} timetable={this.props.timetable} AddTimetable={this.props.addTimetable.bind(this)}></TimeTable>}></Route>
                 </div>
             </React.Fragment>
         )}
@@ -241,7 +244,7 @@ function MngStd(props){
                         <tr>
                             <th>Name</th>
                             <th>Enrollment No.</th>
-                            <th>Course</th>
+                            <th>Department</th>
                             <th>Branch</th>
                             <th>Phone No.</th>
                             <th>Dob</th>
@@ -252,10 +255,10 @@ function MngStd(props){
                         <tr>
                             <td>{x.firstName+" "+x.lastName}</td>
                             <td>{x.enroll}</td>
-                            <td>{x.course}</td>
+                            <td>{x.department}</td>
                             <td>{x.branch}</td>
                             <td>{x.mob_no}</td>
-                            <td>{x.dob}</td>
+                            <td>{JSON.stringify(x.dob).slice(1,11)}</td>
                             <button className="updateBtn">Update</button>
                             <button className="deleteBtn">Delete</button>
                         </tr>
@@ -331,11 +334,12 @@ function AddStudent(props){
     const [mOccu, setmOccu] = React.useState("");
 
     const [enroll, setEnroll] = React.useState("");
-    const [department,setCourse] = React.useState(null);
+    const [department,setDept] = React.useState(null);
     const [branch,setBranch] = React.useState(null);
 
 return (
     <div className="add_detail">
+        {console.log(props.branch)}
         <br/>
         <h2>Add Student <Link style={{float:"right",marginRight:"25px"}} to="/admin/student"><i style={{color:"#707070" }}class="fas fa-window-close"></i></Link> </h2> 
         <br/>
@@ -648,30 +652,25 @@ return (
 
     <div className="form-acad">
        <input type="text" name="enroll_no" placeholder="Enrollment Number" onChange={(e)=>{setEnroll(e.target.value)}} value={enroll}></input> 
-       <select value={department} onChange={(e)=>setCourse(e.target.value)}>
-           <option value="">Course</option>
-            {props.department.map((x)=>(<option>{x.dept_name}</option>))}
-           
+       <select value={department} onChange={(e)=>setDept(e.target.value)}>
+           <option value="">Department</option>
+            {props.department.map((x)=>(<option>{x.dept_name}</option>))}  
        </select>
 
-       {department == "Bachelor of Technology (B.Tech)" ? 
+       {/* {props.branch.map((x)=>x.branchDept) === department ?  */}
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            {props.course.map(x=>x.courseDept===department ? x.c_name:null)}
+            {props.branch.map((x)=>x.branchDept === department ? <option>{x.branchName}</option>:"")}
            </select>
-       </span> : null}
+       </span> 
+        {/* //  : null} */}
 
-       {department == "B.Sc" ? 
+       {/* {department == "B.Sc" ? 
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
-            <option value="">Branch</option>
-            <option value="B.Sc-phy">Physics</option>
-            <option value="B.Sc-chem">Chemistry</option>
-            <option value="B.Sc-math">Mathematics</option>
-            <option value="B.Sc-bio">Biology</option>
-            <option value="B.Sc-evs">Environmental Science</option>
-            <option value="B.Sc-hs">Home Science</option>
+           <option value="">Branch</option>
+           <option>{props.branch[0].branchDept===department ? props.branch[0].branchName:null}</option>
            </select>
        </span> : null}
 
@@ -679,13 +678,7 @@ return (
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            <option value="B.A.-eng">English</option>
-            <option value="B.A.-psy">Psychology</option>
-            <option value="B.A.-psc">Political Science</option>
-            <option value="B.A.-pr">Public Relations</option>
-            <option value="B.A.-soc">Sociology</option>
-            <option value="B.A.-eco">Economics</option>
-            <option value="B.A.-geo">Geography</option>
+            <option>{props.branch[0].branchDept===department ? props.branch[0].branchName:null}</option>
            </select>
        </span> : null}
 
@@ -693,15 +686,7 @@ return (
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            <option value="M.Tech-auto">Automobile</option>
-            <option value="M.Tech-it">IT</option>
-            <option value="M.Tech-cse">CSE</option>
-            <option value="M.Tech-ece">ECE</option>
-            <option value="M.Tech-ee">EE</option>
-            <option value="M.Tech-civ">Cvil</option>
-            <option value="M.Tech-chem">Chemical</option>
-            <option value="M.Tech-mech">Mechanical</option>
-            <option value="M.Tech-mech">Mechatronics</option>
+            <option>{props.branch[0].branchDept===department ? props.branch[0].branchName:null}</option>
            </select>
        </span> : null}
        
@@ -709,12 +694,7 @@ return (
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            <option value="M.Sc-phy">Physics</option>
-            <option value="M.Sc-chem">Chemistry</option>
-            <option value="M.Sc-math">Mathematics</option>
-            <option value="M.Sc-bio">Biology</option>
-            <option value="M.Sc-evs">Environmental Science</option>
-            <option value="M.Sc-hs">Home Science</option>
+            <option>{props.branch[0].branchDept===department ? props.branch[0].branchName:null}</option>
            </select>
        </span> : null}
 
@@ -722,15 +702,9 @@ return (
        <span>
            <select value={branch} onChange={(e=>setBranch(e.target.value))}>
             <option value="">Branch</option>
-            <option value="M.A.-eng">English</option>
-            <option value="M.A.-psy">Psychology</option>
-            <option value="M.A.-psc">Political Science</option>
-            <option value="M.A.-pr">Public Relations</option>
-            <option value="M.A.-soc">Sociology</option>
-            <option value="M.A.-eco">Economics</option>
-            <option value="M.A.-geo">Geography</option>
+            <option>{props.branch[0].branchDept===department ? props.branch[0].branchName:null}</option>
            </select>
-       </span> : null}
+       </span> : null} */}
     </div>
        <br/>
        <br/>
@@ -740,7 +714,7 @@ return (
         mth_email,mOccu,enroll,department,branch});
         setFirstName("");setMiddleName("");setLastName("");setGender("");setDob("");setMob_no("");setEmail("");setAltEmail("");
         setAddress1("");setAddress2("");setCity("");setPincode("");setstate("");setCountry("");setFname("");setFatMob_no("");setFthEmail("");
-        setfOccu("");setMname("");setMthMob_no("");setMthEmail("");setmOccu("");setEnroll("");setCourse("");setBranch("")}}>Add</button>
+        setfOccu("");setMname("");setMthMob_no("");setMthEmail("");setmOccu("");setEnroll("");setDept("");setBranch("")}}>Add</button>
         <br/>
         <br/>
         <br/>
@@ -755,24 +729,28 @@ function Dashboard(props){
         </div>
         <div className="dashboard">
             <div className="banner">
+                <div className="banner-img"><img src="/images/student2.png" style={{width:"90px"}}></img></div>
                 <div className="banner-info">
                 <span>{props.student.length}</span>
                 <p>{props.student.length === 1 ? " Student":" Students"}</p>
                 </div>
             </div>
             <div className="banner">
+                <div className="banner-img"><img src="/images/teacher.png" style={{width:"90px"}}></img></div>
                 <div className="banner-info">
                 <span>{props.faculty.length}</span>
                 <p>Faculty</p>
                 </div>
             </div>
             <div className="banner">
+                <div className="banner-img"><img src="/images/news.png" style={{width:"90px"}}></img></div>
                 <div className="banner-info">
                 <span>{props.news.length}</span>
                 <p>News</p>
                 </div>
             </div>
         </div>
+        <div className="banner2">
         <div className="newsBlock">
             <div>
                 {props.news.map((x)=>(
@@ -781,6 +759,13 @@ function Dashboard(props){
                     </div>
                 ))}
             </div>
+        </div>
+        <div className="management">
+            <div className="mgmt mgmt-1"><span>Departments</span><br/><p>{props.department.length}</p></div>
+            <div className="mgmt mgmt-2"><span>Branch</span><br/><p>{props.branch.length}</p></div>
+            <div className="mgmt mgmt-3"><span>Courses</span><br/><p>{props.course.length}</p></div>
+            <div className="mgmt mgmt-4"><span>Day & Date</span><br/><p>{new Date().getDate()+"-"+new Date().getMonth()+"-"+new Date().getFullYear()}</p></div>
+        </div>
         </div>
         </React.Fragment>
     )
@@ -805,6 +790,18 @@ function Add_faculty(props){
     const [id, setId] = React.useState("");
     const [dept,setDept] = React.useState(null);
     const [branch,setBranch] = React.useState(null);
+    const [coursesTaught,setCoursesTaught]=React.useState([])
+
+    let addCourseTaught = (checked,value) => {
+       console.log(checked+" "+value)
+       var index=coursesTaught.indexOf(value);
+       console.log("Index: ",index);
+       if(index==-1)
+            setCoursesTaught(coursesTaught.concat(value))
+       else
+           setCoursesTaught(coursesTaught.splice(coursesTaught.indexOf(value),1))
+        console.log(coursesTaught);    
+    }
 
 return (
     <div className="add_detail">
@@ -1101,112 +1098,29 @@ return (
     <div className="form-acad">
        <input type="text" name="id" placeholder="ID" onChange={(e)=>{setId(e.target.value)}} value={id}></input> 
        <select value={dept} onChange={(e)=>setDept(e.target.value)}>
-           <option value="">Course</option>
-           <option value="B.Tech">Bachelor of Technology (B.Tech)</option>
-           <option value="BBA">Bachelor of Business Administration (BBA)</option>
-           <option value="B.Sc">Bachelor of Science (B.Sc)</option>
-           <option value="B.Comm">Bachelor of Commerce (B.Comm)</option>
-           <option value="B.A.">Bachelor of Arts (B.A)</option>
-           <option value="B.J.M.C">Bachelor of Journalism & Mass Communication (B.J.M.C)</option>
-           <option value="M.Tech">Masters of Technology (M.Tech)</option>
-           <option value="MBA">Masters of Business Administration (MBA)</option>
-           <option value="M.Sc">Masters of Science (M.Sc)</option>
-           <option value="M.Comm">Masters of Commerce (M.Comm)</option>
-           <option value="M.A.">Masters of Arts (M.A)</option>
+           <option value="">Department</option>
+            {props.department.map((x)=>(<option>{x.dept_name}</option>))}  
        </select>
+ 
+       <span>
+           <select value={branch} onChange={(e=>setBranch(e.target.value))}>
+            <option value="">Branch</option>
+            {props.branch.map((x)=>x.branchDept === dept ? <option>{x.branchName}</option>:"")}
+           </select>
+       </span> 
 
-       {dept == "B.Tech" ? 
-       <span>
-           <select value={branch} onChange={(e=>setBranch(e.target.value))}>
-            <option value="">Branch</option>
-            <option value="B.Tech-auto">Automobile</option>
-            <option value="B.Tech-it">IT</option>
-            <option value="B.Tech-cse">CSE</option>
-            <option value="B.Tech-ece">ECE</option>
-            <option value="B.Tech-ee">EE</option>
-            <option value="B.Tech-civ">Cvil</option>
-            <option value="B.Tech-chem">Chemical</option>
-            <option value="B.Tech-mech">Mechanical</option>
-            <option value="B.Tech-mct">Mechatronics</option>
-           </select>
-       </span> : null}
-
-       {dept == "bsc" ? 
-       <span>
-           <select value={branch} onChange={(e=>setBranch(e.target.value))}>
-            <option value="">Branch</option>
-            <option value="B.Sc-phy">Physics</option>
-            <option value="B.Sc-chem">Chemistry</option>
-            <option value="B.Sc-math">Mathematics</option>
-            <option value="B.Sc-bio">Biology</option>
-            <option value="B.Sc-evs">Environmental Science</option>
-            <option value="B.Sc-hs">Home Science</option>
-           </select>
-       </span> : null}
-
-       {dept == "ba" ? 
-       <span>
-           <select value={branch} onChange={(e=>setBranch(e.target.value))}>
-            <option value="">Branch</option>
-            <option value="B.A.-eng">English</option>
-            <option value="B.A.-psy">Psychology</option>
-            <option value="B.A.-psc">Political Science</option>
-            <option value="B.A.-pr">Public Relations</option>
-            <option value="B.A.-soc">Sociology</option>
-            <option value="B.A.-eco">Economics</option>
-            <option value="B.A.-geo">Geography</option>
-           </select>
-       </span> : null}
-
-       {dept == "mtech" ? 
-       <span>
-           <select value={branch} onChange={(e=>setBranch(e.target.value))}>
-            <option value="">Branch</option>
-            <option value="M.Tech-auto">Automobile</option>
-            <option value="M.Tech-it">IT</option>
-            <option value="M.Tech-cse">CSE</option>
-            <option value="M.Tech-ece">ECE</option>
-            <option value="M.Tech-ee">EE</option>
-            <option value="M.Tech-civ">Civil</option>
-            <option value="M.Tech-chem">Chemical</option>
-            <option value="M.Tech-mech">Mechanical</option>
-            <option value="M.Tech-mech">Mechatronics</option>
-           </select>
-       </span> : null}
-       
-       {dept == "msc" ? 
-       <span>
-           <select value={branch} onChange={(e=>setBranch(e.target.value))}>
-            <option value="">Branch</option>
-            <option value="M.Sc-phy">Physics</option>
-            <option value="M.Sc-chem">Chemistry</option>
-            <option value="M.Sc-math">Mathematics</option>
-            <option value="M.Sc-bio">Biology</option>
-            <option value="M.Sc-evs">Environmental Science</option>
-            <option value="M.Sc-hs">Home Science</option>
-           </select>
-       </span> : null}
-
-       {dept == "ma" ? 
-       <span>
-           <select value={branch} onChange={(e=>setBranch(e.target.value))}>
-            <option value="">Branch</option>
-            <option value="M.A.-eng">English</option>
-            <option value="M.A.-psy">Psychology</option>
-            <option value="M.A.-psc">Political Science</option>
-            <option value="M.A.-pr">Public Relations</option>
-            <option value="M.A.-soc">Sociology</option>
-            <option value="M.A.-eco">Economics</option>
-            <option value="M.A.-geo">Geography</option>
-           </select>
-       </span> : null}
+       <br/>
     </div>
+       <span>
+            {props.course.map((x)=>x.courseBranch === branch ? 
+            <div><input type="checkbox" style={{display:"inline"}} value={x.courseName} name={x.courseName} onChange={(e)=>addCourseTaught(e.target.checked,e.target.value)}/>{x.courseName}</div>:null)}
+       </span>
        <br/>
        <button type="submit" onClick={(e)=>{props.addFaculty({ firstName,middleName,lastName,gender,
-        dob,mob_no,email,altEmail,address1,address2,city,pincode,state,country,id,dept,branch});
+        dob,mob_no,email,altEmail,address1,address2,city,pincode,state,country,id,dept,branch,coursesTaught});
         setFirstName("");setMiddleName("");setLastName("");setGender("");setDob("");setMob_no("");setEmail("");setAltEmail("");
         setAddress1("");setAddress2("");setCity("");setPincode("");setstate("");setCountry("");
-        setId("");setDept("");setBranch("")}}>Add</button>
+        setId("");setDept("");setBranch("");setCoursesTaught([])}}>Add</button>
         <br/>
         <br/>
         <br/>
@@ -1286,34 +1200,85 @@ function AddDepartment(props){
      )   
 }
 
+function AddBranch(props){
+    const [branchName,setBranchName]=React.useState("");
+    const [branchDept,setBranchDept] = React.useState("");
+     return (
+        <React.Fragment>
+            <div className="course-head">
+            <h2>Branch</h2>
+            <input type="text" name="Branch Name" placeholder="Branch Name" value={branchName} onChange={(e)=>{setBranchName(e.target.value)}}></input>
+            <select value={branchDept} onChange={(e)=>setBranchDept(e.target.value)}>
+                <option value={null}>Select Department</option>
+                {props.department.map((x)=>(
+                    <option value={x.dept_name}>{x.dept_name}</option>
+                ))}
+            </select>
+            <button type="submit" onClick={(e)=>{props.addBranch({branchName,branchDept});setBranchName("");setBranchDept("")}}>Add</button>
+            <div>
+                    <div className="courses">
+                        <table className="table course-table">
+                        <thead>
+                            <tr>
+                                <th>Branch</th>
+                                <th>Department</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {props.branch.map((x)=>(    
+                            <tr>
+                                <td>{x.branchName}</td>
+                                <td>{x.branchDept}</td>
+                            </tr> 
+                        ))}
+                        </tbody>
+                        </table>
+                    </div>
+                    </div>
+            </div>
+        </React.Fragment>
+     )   
+}
+
 function AddCourse(props){
-    const [c_name,setC_name]=React.useState("");
-    const [courseDept,setCourseDept] = React.useState("");
+    const [courseName,setCourseName]=React.useState("");
+    const [courseCode,setCourseCode]=React.useState("");
+    const [courseDept,setCourseDept]=React.useState("");
+    const [courseBranch,setCourseBranch]=React.useState("");
      return (
         <React.Fragment>
             <div className="course-head">
             <h2>Courses</h2>
-            <input type="text" name="Course Name" placeholder="Course Name" value={c_name} onChange={(e)=>{setC_name(e.target.value)}}></input>
+            <input type="text" name="Course Name" placeholder="Course Name" value={courseName} onChange={(e)=>{setCourseName(e.target.value)}}></input>
+            <input type="text" name="Course Code" placeholder="Course Code" value={courseCode} onChange={(e)=>{setCourseCode(e.target.value)}}></input>
             <select value={courseDept} onChange={(e)=>setCourseDept(e.target.value)}>
                 <option value={null}>Select Department</option>
                 {props.department.map((x)=>(
                     <option value={x.dept_name}>{x.dept_name}</option>
                 ))}
             </select>
-            <button type="submit" onClick={(e)=>{props.addCourse({c_name,courseDept});setC_name("");setCourseDept("")}}>Add</button>
+            <select value={courseBranch} onChange={(e)=>setCourseBranch(e.target.value)}>
+                <option value={null}>Select Branch</option>
+                {props.branch.map((x)=>x.branchDept === courseDept ? <option value={x.branchName}>{x.branchName}</option>:null)}
+            </select>
+            <button type="submit" onClick={(e)=>{props.addCourse({courseName,courseCode,courseDept,courseBranch});setCourseName("");setCourseDept("");setCourseCode("")}}>Add</button>
             <div>
                     <div className="courses">
                         <table className="table course-table">
                         <thead>
                             <tr>
                                 <th>Course</th>
+                                <th>Course Code</th>
+                                <th>Branch</th>
                                 <th>Department</th>
                             </tr>
                         </thead>
                         <tbody>
                         {props.course.map((x)=>(    
                             <tr>
-                                <td>{x.c_name}</td>
+                                <td>{x.courseName}</td>
+                                <td>{x.courseCode}</td>
+                                <td>{x.courseBranch}</td>
                                 <td>{x.courseDept}</td>
                             </tr> 
                         ))}
@@ -1324,5 +1289,45 @@ function AddCourse(props){
             </div>
         </React.Fragment>
      )   
+}
+
+function TimeTable(props){
+    const [timetable,setTimetable]=React.useState({file:null});
+    const [section,setSection]=React.useState(null);
+    const setImage = (e) => {
+        //console.log(e.target.files[0].name);
+        let file = e.target.files[0];  //Capture the file in variable otherwise event gets nullified and you won't get file.
+        console.log(file);
+        setTimetable(prevState=>({
+            ...prevState,
+         //    file:URL.createObjectURL(file)
+         file:file
+         }))
+      }
+
+    return (
+        <React.Fragment>
+            <div className="news-head">
+                <h2>Timetable</h2>
+            </div>
+            <div>
+            <input type="file" name="timetable" onChange={setImage}/>
+            <select value={section} onChange={(e)=>setSection(e.target.value)}>
+                <option value="">Branch</option>
+                {props.branch.map((x)=><option value={x.branchName}>{x.branchName}</option>)}
+            </select>
+            <button onClick={(e)=>props.AddTimetable({timetable,section})}>Add</button>
+            </div>
+
+            <div className="timetable-list">
+            {props.branch.map((x)=><img src={'/images/'+x.branchName+".png"}></img> ? 
+            <span style={{textAlign:'center',width:"250px"}}>
+                <img src={'/images/'+x.branchName+".png"} alt="" style={{width:"250px",height:"auto"}}></img>
+                    <br/>
+                <p>{x.branchName}</p>
+            </span>:null)}
+            </div>
+        </React.Fragment>
+    )
 }
 

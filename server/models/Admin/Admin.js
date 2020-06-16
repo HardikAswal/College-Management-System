@@ -25,8 +25,32 @@ const newsSchema = new mongoose.Schema({
 const News = mongoose.model('News',newsSchema);
 
 //Course Schema
+const branchSchema = new mongoose.Schema ({
+   branchName:{
+      type:String,
+      required:true
+   },
+   branchDept:{
+      type:String,
+      required:true
+   },
+   branch_students:{
+      type:[String]
+   }
+});
+const Branch = mongoose.model('Branch',branchSchema);
+
+//Course Schema
 const courseSchema = new mongoose.Schema ({
-   c_name:{
+   courseName:{
+      type:String,
+      required:true
+   },
+   courseCode:{
+      type:String,
+      required:true
+   },
+   courseBranch:{
       type:String,
       required:true
    },
@@ -34,12 +58,15 @@ const courseSchema = new mongoose.Schema ({
       type:String,
       required:true
    },
-   c_students:{
-      type:[String]
+   courseStudents:{
+      type:[Object]
    }
 });
 const Course = mongoose.model('Course',courseSchema);
 
+
+
 exports.Department = Department;
 exports.News = News;
+exports.Branch = Branch;
 exports.Course = Course;
